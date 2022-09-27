@@ -1,0 +1,146 @@
+---
+layout: default
+title: Jomaica Lei
+---
+
+<body>
+  <div class="top-container">
+    <div class="background-image">
+      <div class="image-overlay">
+        <div class="intro-container-right">
+          <div class="intro-content">
+            <div class="header-container">
+              <h1>RK</h1>
+            </div>
+            <div class="sub-header-container">
+              <h1>CWRICHARDKIM</h1>
+            </div>
+            <div class="description-container">
+              <p>Builder, programmer, designer(ish)</p>
+            </div>
+            <div class="links-container">
+              <div class="text-link-container">
+                <a class="square-link" target="_blank" href="http://resume.cwrichardkim.com">resume</a>
+              </div>
+              <div class="social-icon-container">
+                <a class="social-icon" target="_blank" href="http://github.com/cwrichardkim">
+                  <img src="assets/social/github.svg" alt="GitHub">
+                </a>
+                <a class="social-icon" target="_blank" href="http://www.linkedin.com/in/cwrichardkim/">
+                  <img src="assets/social/linkedin.svg" alt="LinkedIn">
+                </a>
+                <a class="social-icon" target="_blank" href="https://medium.com/@cwRichardKim">
+                  <img src="assets/social/medium.svg" alt="Medium">
+                </a>
+                <a class="social-icon" target="_blank" href="https://twitter.com/cwRichardKim">
+                  <img src="assets/social/twitter.svg" alt="Twitter">
+                </a>
+                <a class="social-icon" href="mailto:cwrichardkim@gmail.com">
+                  <img src="assets/social/email.svg" alt="Email">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% include down-arrow.html %}
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="downwards_curved_triangle">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <svg width="146px" height="10px" viewBox="0 0 146 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+          <g id="concept-2" sketch:type="MSArtboardGroup" transform="translate(-426.000000, -860.000000)" fill="#0E2736">
+            <path d="M425,860 C444,860 553,860 573,860 C512,860 499,870 499,870 C499,870 484,860 425,860 Z" id="curved-triangle" sketch:type="MSShapeGroup"></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="timeline_vert_line"></div>
+
+    <div class="jobs_container">
+      {% for job in site.jobs reversed %}
+
+        {% if job == site.jobs.first %}
+        <div class="job_instance last_job">
+          <div class="timeline_vert_line"></div>
+        {% else %}
+        <div class="job_instance">
+        {% endif %}
+
+          <div class="job_marker_outer"><div class="job_marker_inner"></div></div>
+          <div class="job_content">
+            <div class="info_left">
+              <h1 class="blue_text">{{job.company}}</h1>
+              <p>{{job.time}}{% if job.duration %}<br>({{job.duration}}){% endif %}</p>
+            </div>
+            <div class="info_right">
+              <h1>{{job.position}}</h1>
+              <div class="job_content_text" id="job_{{job.jobID}}">{{job.content}}</div>
+              <div class="job_content_text_mobile" id="job_{{job.jobID}}_trunc">
+                {{ job.content | split:'<!--break-->' | first }}{% if job.content contains '<!--break-->' %}...
+                <button class="textButton" onclick="readMoreClicked('{{job.jobID}}')">[read more]</button>{% endif %}
+              </div>
+            </div>
+            <div class="spacer" style="clear: both;"></div>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <div class="project_highlights" id="projects">
+    <h1>PROJECT HIGHLIGHTS</h1>
+    <div class="title_underline"></div>
+
+    {% for post in site.posts %}
+    <div class="project_instance">
+      <div class="project_photo">
+        <img class="project_img" src="projects/{{post.folder}}/preview.png">
+      </div>
+
+      <div class="project_text_container">
+        <h2>{{post.preview_title}}</h2>
+        <a class= "link" href="{{post.link}}" target="_blank">{{post.link_title}}</a>
+        <p>{{post.preview_description }}</p>
+        {% if post.hidden %}
+          <a href="#"><div class="border_button">{{post.button_text}}<br>(coming soon)</div></a>
+        {% else %}
+          <a href="{{post.url}}"><div class="border_button">{{post.button_text}}</div></a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <a href="mailto:cwrichardkim@gmail.com"><div class="border_button larger_button">Contact</div></a>
+    <div class="button_subtext_container"><p class="button_subtext">Can't say no to a cup of ☕️</p></div>
+
+  </div>
+
+</body>
+
+<script type="text/javascript">
+  window.onload = function () {
+    function applyAnim(className, animName) {
+      var els = document.getElementsByClassName(className);
+      if (els && els.length > 0) {
+        el = els[0]
+        if (el)
+          el.classList.add(animName);
+      }
+    }
+    applyAnim("intro-container-right", "intro-container-right-anim");
+    applyAnim("background-image", "background-image-anim");
+    applyAnim("downwards_curved_triangle", "down_arrow_anim");
+    setTimeout( function(){applyAnim("scroll-indicator", "scroll-indicator-fade-in-anim")}, 2000 );
+    setTimeout( function(){applyAnim("scroll-indicator", "scroll-indicator-bounce-anim")}, 2500 );
+  }
+  function readMoreClicked(jobID) {
+    var test = document.getElementById('job_'+jobID).style.display = "inline";
+    document.getElementById('job_'+jobID+'_trunc').style.display = "none";
+  }
+</script>
