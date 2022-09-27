@@ -1,4 +1,4 @@
-cd ~/Documents/Resume/current/
+cd ~/Desktop/ajomaica.github.io
 git add .
-git commit -m "Resume Update for $(date)"
-git push origin master
+git commit -m "Resume.pdf"
+git push origin main
